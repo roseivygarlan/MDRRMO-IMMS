@@ -30,7 +30,7 @@
                         </td>
                         @else
                         <td class="py-4 text-sm text-gray-600 flex flex-row items-center text-left">
-                            Barrowed item 1 ref. code: 112<span class="num-2"></span>
+                            Borrowed item 1 ref. code: 112<span class="num-2"></span>
                         </td>
                         @endif
                         @if(auth()->user()->type <> '1010')

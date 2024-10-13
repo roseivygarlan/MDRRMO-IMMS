@@ -20,8 +20,7 @@ return new class extends Migration
             $table->string('phone')->unique();
             $table->string('address');
             $table->string('position')->default('Staff');
-            $table->datetime('started_at')->nullable(); 
-            $table->string('status')->default('Activated'); 
+            $table->string('status')->default('Pending'); 
             $table->string('type')->default('1001'); // Staff = 1001 , Admin = 1111 and Barangay = 1010
             $table->rememberToken();
             $table->timestamps();

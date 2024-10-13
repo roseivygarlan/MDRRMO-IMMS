@@ -14,7 +14,7 @@
 
                 <!-- bottom -->
                 <div class="mt-8">
-                    <h1 class="h5 num-4"></h1>
+                    <h1 class="h5 num-2"></h1>
                     <p>Damaged</p>
                 </div>
                 <!-- end bottom -->
@@ -44,8 +44,8 @@
 
                 <!-- bottom -->
                 <div class="mt-8">
-                    <h1 class="h5 num-4"></h1>
-                    <p>Barrowed</p>
+                    <h1 class="h5 num-2"></h1>
+                    <p>Borrowed</p>
                 </div>
                 <!-- end bottom -->
 
@@ -74,7 +74,7 @@
 
                 <!-- bottom -->
                 <div class="mt-8">
-                    <h1 class="h5 num-4"></h1>
+                    <h1 class="h5 num-2"></h1>
                     <p>Returned</p>
                 </div>
                 <!-- end bottom -->
@@ -88,7 +88,7 @@
 
 
     <!-- card -->
-    <a href="">
+    <a href="{{(auth()->user()->type == '1001') ? '/user/equipment':'#'}}">
     <div class="report-card">
         <div class="card">
             <div class="card-body flex flex-col">
@@ -101,7 +101,7 @@
 
                 <!-- bottom -->
                 <div class="mt-8">
-                    <h1 class="h5 num-4"></h1>
+                    <h1 class="h5"> {{$equipmentCount}}</h1>
                     <p>Equipments</p>
                 </div>
                 <!-- end bottom -->
@@ -115,7 +115,7 @@
 
     @if(auth()->user()->type == '1111')
       <!-- card -->
-      <a href="">
+      <a href="{{route('admin.usermanagement.pending')}}">
     <div class="report-card">
         <div class="card">
             <div class="card-body flex flex-col">
@@ -128,7 +128,7 @@
 
                 <!-- bottom -->
                 <div class="mt-8">
-                    <h1 class="h5 num-4"></h1>
+                    <h1 class="h5">{{$userPending}}</h1>
                     <p>Pending User's</p>
                 </div>
                 <!-- end bottom -->
@@ -141,7 +141,7 @@
     <!-- end card -->
 
      <!-- card -->
-     <a href="">
+     <a href="{{route('admin.usermanagement.activated')}}">
     <div class="report-card">
         <div class="card">
             <div class="card-body flex flex-col">
@@ -154,7 +154,7 @@
 
                 <!-- bottom -->
                 <div class="mt-8">
-                    <h1 class="h5 num-4"></h1>
+                    <h1 class="h5">{{$userActivated}}</h1>
                     <p>Activated User's</p>
                 </div>
                 <!-- end bottom -->
@@ -167,7 +167,7 @@
     <!-- end card -->
 
      <!-- card -->
-     <a href="">
+     <a href="{{route('admin.usermanagement.deactivated')}}">
     <div class="report-card">
         <div class="card">
             <div class="card-body flex flex-col">
@@ -180,7 +180,7 @@
 
                 <!-- bottom -->
                 <div class="mt-8">
-                    <h1 class="h5 num-4"></h1>
+                    <h1 class="h5">{{$userDeactivated}}</h1>
                     <p>Deactivated User's</p>
                 </div>
                 <!-- end bottom -->
@@ -193,7 +193,7 @@
     <!-- end card -->
 
       <!-- card -->
-    <a href="">
+    <a href="{{route('admin.usermanagement.blocked')}}">
     <div class="report-card">
         <div class="card">
             <div class="card-body flex flex-col">
@@ -206,7 +206,7 @@
 
                 <!-- bottom -->
                 <div class="mt-8">
-                    <h1 class="h5 num-4"></h1>
+                    <h1 class="h5">{{$userBlocked}}</h1>
                     <p>Blocked User's</p>
                 </div>
                 <!-- end bottom -->

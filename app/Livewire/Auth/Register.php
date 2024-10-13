@@ -36,7 +36,7 @@ class Register extends Component
     {
         $this->validate([
             'name' => ['required'],
-            'phone' => ['required', 'unique:users'],
+            'phone' => ['required', 'min:10', 'max:10', 'unique:users'],
             'address' => ['required'],
             'position' => ['required'],
             'email' => ['required', 'email', 'unique:users'],
@@ -54,9 +54,7 @@ class Register extends Component
 
         event(new Registered($user));
 
-        Auth::login($user, true);
-
-        return redirect()->route('user.home');
+        return redirect()->route('register')->with('success','Your account is created successfully! Please wait for the account approval by the administrator of MDRRMO. Thanks!');
     }
 
     public function render()

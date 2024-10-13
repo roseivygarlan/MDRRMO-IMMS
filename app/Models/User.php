@@ -22,7 +22,6 @@ class User extends Authenticatable
         'phone',
         'address',
         'position',
-        'started_at',
         'status',
         'type',
         'email',

@@ -26,7 +26,7 @@ class UserType
             return redirect()->route('admin.home');
             break;
             case "1010": // barangay
-            return redirect()->route('barangay.home');
+            return redirect()->route('barangay.equipment.index');
             break;
         }
     }

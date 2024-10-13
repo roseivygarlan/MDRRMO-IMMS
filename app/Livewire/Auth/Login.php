@@ -27,20 +27,37 @@ class Login extends Component
 
         if (!Auth::attempt(['email' => $this->email, 'password' => $this->password], $this->remember)) {
             $this->addError('email', trans('auth.failed'));
-
             return;
         }
-        switch (auth()->user()->type) {
-            case "1001": // user
-                return redirect()->intended(route('user.home'));
-            break;
-            case "1111": // admin
-                return redirect()->route('admin.home');
-            break;
-            case "1010": // barangay
-                return redirect()->route('barangay.home');
-            break;
+        if(auth()->user()->status == 'Pending'){
+            $this->addError('status', trans('Your account is Pending. Please contact the administrator of MDRRMO to approve your account. Thanks'));
+            return;
         }
+
+        if(auth()->user()->status == 'Blocked'){
+            $this->addError('status', trans('Your account is temporarily blocked by the administrator of MDRRMO!'));
+            return;
+        }
+
+        if(auth()->user()->status == 'Deactivated'){
+            $this->addError('status', trans('Your account is deactivated by the administrator of MDRRMO!'));
+            return;
+        }
+
+        if(auth()->user()->status == 'Activated'){
+            switch (auth()->user()->type) {
+                case "1001": // user
+                    return redirect()->intended(route('user.home'));
+                break;
+                case "1111": // admin
+                    return redirect()->route('admin.home');
+                break;
+                case "1010": // barangay
+                    return redirect()->route('barangay.equipment.index');
+                break;
+            }
+        }
+       
     }
 
     public function render()

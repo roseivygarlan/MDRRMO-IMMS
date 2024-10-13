@@ -10,10 +10,10 @@ use App\Livewire\Auth\Register;
 use App\Livewire\Auth\Verify;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
-    UserController
+    UserController,
+    EquipmentController,
+    ProfileController
 };
-
-
 
 Route::middleware('guest')->group(function () {
     Route::redirect('/', 'login');
@@ -51,19 +51,35 @@ Route::middleware('auth')->group(function () {
         Route::view('home', 'pages.dashboard')
         ->name('home');
 
-        Route::view('equipment', 'pages.equipment')
-        ->name('equipment');
+        Route::controller(ProfileController::class)->prefix('profile')->as('profile.')->group(function() {
+            Route::get('/', 'index')->name('index');
+            Route::put('/update', 'update')->name('update');
+            Route::put('/update-password', 'updatePassword')->name('update.password');
+        });
+
+        Route::controller(EquipmentController::class)->prefix('equipment')->as('equipment.')->group(function() {
+            Route::get('/', 'index')->name('index');
+            Route::post('/store', 'store')->name('store');
+            Route::put('/update', 'update')->name('update');
+            Route::put('/update/stock', 'updateStock')->name('update.stock');
+            Route::delete('/destroy/{eqId}', 'destroy')->name('delete');
+        });
 
         Route::view('log', 'pages.log')
         ->name('log');
     });
 
     Route::middleware('user.type:1010')->prefix('barangay')->as('barangay.')->group(function () {
-        Route::view('home', 'pages.equipment')
-        ->name('home');
 
-        Route::view('equipment', 'pages.equipment')
-        ->name('equipment');
+        Route::controller(EquipmentController::class)->prefix('equipment')->as('equipment.')->group(function() {
+            Route::get('/', 'index')->name('index');
+        });
+
+        Route::controller(ProfileController::class)->prefix('profile')->as('profile.')->group(function() {
+            Route::get('/', 'index')->name('index');
+            Route::put('/update', 'update')->name('update');
+            Route::put('/update-password', 'updatePassword')->name('update.password');
+        });
 
         Route::view('log', 'pages.log')
         ->name('log');
@@ -73,18 +89,29 @@ Route::middleware('auth')->group(function () {
         Route::view('home', 'pages.dashboard')
         ->name('home');
 
+        Route::controller(ProfileController::class)->prefix('profile')->as('profile.')->group(function() {
+            Route::get('/', 'index')->name('index');
+            Route::put('/update', 'update')->name('update');
+            Route::put('/update-password', 'updatePassword')->name('update.password');
+        });
+
         Route::view('log', 'pages.log')
         ->name('log');
 
-        // User Management Routes
         Route::controller(UserController::class)->prefix('usermanagement')->as('usermanagement.')->group(function() {
             Route::get('/', 'index')->name('index');
+            Route::get('/barangay', 'barangay')->name('barangay.list');
             Route::post('/store', 'store')->name('store');
             Route::put('/update', 'update')->name('update');
-            Route::delete('/destroy', 'destroy')->name('delete');
+            Route::put('/update-password', 'updatePassword')->name('update.password');
+            Route::put('/update/status/{userId}/{status}', 'changeStatus')->name('update.status');
+            Route::delete('/destroy/{userId}', 'destroy')->name('delete');
+            Route::get('/user/pending', 'pendingUserList')->name('pending');
+            Route::get('/user/activated', 'activatedUserList')->name('activated');
+            Route::get('/user/deactivated', 'deactivatedUserList')->name('deactivated');
+            Route::get('/user/blocked', 'blockedUserList')->name('blocked');
+            Route::get('/user/all', 'allUsers')->name('all');
         });
-
-
     });
 });
 
